@@ -1,4 +1,6 @@
+using irrigation_system_webapp.Data;
 using Microsoft.AspNetCore.Authentication.Negotiate;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +16,9 @@ builder.Services.AddAuthorization(options =>
     options.FallbackPolicy = options.DefaultPolicy;
 });
 builder.Services.AddRazorPages();
+
+builder.Services.AddDbContext<IrrigationAppContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("IrrigationAppContext")));
 
 var app = builder.Build();
 
