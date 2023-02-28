@@ -23,6 +23,16 @@ builder.Services.AddDbContext<IrrigationAppContext>(options =>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+
+if (app.Environment.IsDevelopment())
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var salesContext = scope.ServiceProvider.GetRequiredService<IrrigationAppContext>();
+        salesContext.Database.EnsureCreated();
+        salesContext.Seed();
+    }
+}
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");

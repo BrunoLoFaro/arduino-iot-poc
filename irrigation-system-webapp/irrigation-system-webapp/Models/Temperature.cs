@@ -2,7 +2,8 @@
 {
     public class Temperature
     {
-        public DateTime Date;
-        public float Value;
+        public int TemperatureId { get; set; }
+        public DateTime Date { get; set; }
+        public float Value { get; set; }
     }
 }
