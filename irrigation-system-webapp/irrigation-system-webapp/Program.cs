@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+//Yo usé autenticacion de windows. Puedo tener problemas con un contenedor linux?
 builder.Services.AddAuthentication(NegotiateDefaults.AuthenticationScheme)
    .AddNegotiate();
 
@@ -15,11 +16,13 @@ builder.Services.AddAuthorization(options =>
     // By default, all incoming requests will be authorized according to the default policy.
     options.FallbackPolicy = options.DefaultPolicy;
 });
+
+
 builder.Services.AddRazorPages();
 
 string connectionString = Environment.GetEnvironmentVariable("IRRIGATIONAPP_CONNECTIONSTRING");
 builder.Services.AddDbContext<IrrigationAppContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString(connectionString)));
+    options.UseSqlServer("Server=sqlserver2019;Database=testdatabase;User Id=SA;Password=Pass@word;MultipleActiveResultSets=true;TrustServerCertificate=True"));
 
 var app = builder.Build();
 
@@ -29,9 +32,9 @@ if (app.Environment.IsDevelopment())
 {
     using (var scope = app.Services.CreateScope())
     {
-        var salesContext = scope.ServiceProvider.GetRequiredService<IrrigationAppContext>();
-        salesContext.Database.EnsureCreated();
-        salesContext.Seed();
+        var appContext = scope.ServiceProvider.GetRequiredService<IrrigationAppContext>();
+        appContext.Database.EnsureCreated();
+        appContext.Seed();
     }
 }
 if (!app.Environment.IsDevelopment())
@@ -46,8 +49,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthentication();
-app.UseAuthorization();
+//app.UseAuthentication();
+//app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",

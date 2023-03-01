@@ -15,5 +15,7 @@ services:
     build:
       context: .
       dockerfile: irrigation-system-webapp/Dockerfile
+    ports:
+    - 80:80
     environment:
         IRRIGATIONAPP_CONNECTIONSTRING: Server=sqlserver2019;Database=testdatabase;User Id=SA;Password=Pass@word;MultipleActiveResultSets=true;TrustServerCertificate=True
