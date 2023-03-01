@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-CU3-ubuntu-18.04
+    user: '0:0'
+    container_name: sqlserver2019
+    ports:
+      - 1433:1433
+    environment:
+      - SA_PASSWORD=Pass@word
+      - ACCEPT_EULA=Y
+  irrigation-system-webapp:
+    image: ${DOCKER_REGISTRY-}irrigationsystemwebapp
+    build:
+      context: .
+      dockerfile: irrigation-system-webapp/Dockerfile
+    environment:
+        IRRIGATIONAPP_CONNECTIONSTRING: Server=sqlserver2019;Database=testdatabase;User Id=SA;Password=Pass@word;MultipleActiveResultSets=true;TrustServerCertificate=True

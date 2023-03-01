@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33403.182
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "irrigation-system-webapp", "irrigation-system-webapp\irrigation-system-webapp.csproj", "{33CFE845-0633-43D7-AB34-A9288CC2CF9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "irrigation-system-webapp", "irrigation-system-webapp\irrigation-system-webapp.csproj", "{33CFE845-0633-43D7-AB34-A9288CC2CF9F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "irrigation-API", "irrigation-API\irrigation-API.csproj", "{759427AC-5A50-4186-8C84-13D5AAF2FF7D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "irrigation-API", "irrigation-API\irrigation-API.csproj", "{759427AC-5A50-4186-8C84-13D5AAF2FF7D}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{D1038965-76B4-4DB6-A5ED-A911B70612D4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{759427AC-5A50-4186-8C84-13D5AAF2FF7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{759427AC-5A50-4186-8C84-13D5AAF2FF7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{759427AC-5A50-4186-8C84-13D5AAF2FF7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1038965-76B4-4DB6-A5ED-A911B70612D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1038965-76B4-4DB6-A5ED-A911B70612D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1038965-76B4-4DB6-A5ED-A911B70612D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1038965-76B4-4DB6-A5ED-A911B70612D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

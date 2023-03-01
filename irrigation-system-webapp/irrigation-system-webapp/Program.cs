@@ -17,8 +17,9 @@ builder.Services.AddAuthorization(options =>
 });
 builder.Services.AddRazorPages();
 
+string connectionString = Environment.GetEnvironmentVariable("IRRIGATIONAPP_CONNECTIONSTRING");
 builder.Services.AddDbContext<IrrigationAppContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("IrrigationAppContext")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString(connectionString)));
 
 var app = builder.Build();
 
