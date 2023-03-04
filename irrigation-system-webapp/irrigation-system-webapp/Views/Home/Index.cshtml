@@ -6,57 +6,23 @@
 }
 @using irrigation_system_webapp.Models;
 
+    <script src=
+"https://code.jquery.com/jquery-3.6.0.min.js">
+    </script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <canvas id="line-chart" width="800" height="450"></canvas>
 
 <script>
-var arr = [2000];
-    @{
-        int[]myNum = {10000, 20, 30, 40};
-        var temp = (int)ViewBag.temperature;
-    }
-        //foreach(int num in myNum)
-        //{
-                    arr.push(@ViewBag.Temperature);
-//}
-asyncCall();
-async function asyncCall() {
-    console.log("hola");
-    console.log(@temp);
-    console.log(2);
-    await arr.push(@ViewBag.Temperature);
-    createChart();
-}
-function createChart() {
-    new Chart(document.getElementById("line-chart"), {
+        var chartElem = document.getElementById("line-chart");
+    var myChart = new Chart(chartElem, {
   type: 'line',
   data: {
-    labels: [1500,1600,1700,1750,1800,1850,1900,1950,1999,2050],
+    labels: ["a","b"],
     datasets: [{ 
-        data: arr,
+        data: [200,100],
         label: "Africa",
         borderColor: "#3e95cd",
-        fill: false
-      }, { 
-        data: [282,350,411,502,635,809,947,1402,3700,5267],
-        label: "Asia",
-        borderColor: "#8e5ea2",
-        fill: false
-      }, { 
-        data: [168,170,178,190,203,276,408,547,675,734],
-        label: "Europe",
-        borderColor: "#3cba9f",
-        fill: false
-      }, { 
-        data: [40,20,10,16,24,38,74,167,508,784],
-        label: "Latin America",
-        borderColor: "#e8c3b9",
-        fill: false
-      }, { 
-        data: [6,3,2,2,7,26,82,172,312,433],
-        label: "North America",
-        borderColor: "#c45850",
         fill: false
       }
     ]
@@ -68,6 +34,53 @@ function createChart() {
     }
   }
 });
+var arr = [2000];
+    @{
+        int[]myNum = {10000, 20, 30, 40};
+        var temp = (int)ViewBag.temperature;
+    }
+
+        function initialAjaxCall() {
+        $.ajax({
+  
+            // Our sample url to make request 
+            url: 
+            'https://localhost:7213/api/Temperatures',
+  
+            // Type of Request
+            type: "GET",
+  
+            // Function to call when to
+            // request is ok 
+            success: function (data) {
+                console.log(data[data.length - 1])
+                //var x = JSON.stringify(data);
+                //console.log(x);
+            },
+  
+            // Error handling 
+            error: function (error) {
+                console.log(`Error ${error}`);
+            }
+        });
+        }
+
+        setInterval(function(){
+            initialAjaxCall() // this will run after every 5 seconds
+            num += 100;
+            addData(myChart,"label",num);
+        }, 1000);
+
+        initialAjaxCall();
+var num = 100;
+
+function addData(chart, label, data) {
+    chart.data.labels.push(label);
+    chart.data.datasets.forEach((dataset) => {
+        dataset.data.push(data);
+    });
+    chart.update();
 }
+
 
 </script>
