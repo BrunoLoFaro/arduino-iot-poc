@@ -19,11 +19,11 @@
     var myChart = new Chart(chartElem, {
       type: 'line',
       data: {
-        labels: ["a","b"],
+        labels: [],
         datasets: [{ 
-            data: [200,100],
-            label: "Africa",
-            borderColor: "#3e95cd",
+            data: [],
+            label: "Malabia 3115",
+            borderColor: "#DC34E7",
             fill: false
           }
         ]
@@ -31,7 +31,7 @@
       options: {
         title: {
           display: true,
-          text: 'World population per region (in millions)'
+          text: 'Temperatura de casa'
         }
       }
     });
@@ -55,10 +55,6 @@
             'https://localhost:7213/api/Temperatures/Last',
             type: "GET",
             success: function (data) {
-                console.log("last =", lastTemperatureId);
-                console.log("current", data.temperatureId);
-                console.log("current complete", data);
-                console.log("");
                 if (data.temperatureId > lastTemperatureId) {
                     lastTemperatureId = data.temperatureId;
                     addData(myChart, getTimeFromStr(data.date.toString()), data.value);
