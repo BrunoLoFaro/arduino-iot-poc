@@ -15,6 +15,13 @@ namespace irrigation_system_webapp.Controllers
 
         public IActionResult Index()
         {
+
+            ViewBag.temperature = 20000;
+            return View();
+        }
+        public IActionResult Temperatures()
+        {
+            ViewBag.temperature = 20000;
             return View();
         }
 

@@ -18,11 +18,11 @@ builder.Services.AddAuthorization(options =>
 });
 
 
-builder.Services.AddRazorPages();
-
+builder.Services.AddRazorPages()
+    .AddRazorRuntimeCompilation();
 string connectionString = Environment.GetEnvironmentVariable("IRRIGATIONAPP_CONNECTIONSTRING");
 builder.Services.AddDbContext<IrrigationAppContext>(options =>
-    options.UseSqlServer("Server=sqlserver2019;Database=testdatabase;User Id=SA;Password=Pass@word;MultipleActiveResultSets=true;TrustServerCertificate=True"));
+    options.UseSqlServer("Server=localhost,1433;Database=testdatabase;User Id=SA;Password=Pass@word;MultipleActiveResultSets=true;TrustServerCertificate=True"));
 
 var app = builder.Build();
 

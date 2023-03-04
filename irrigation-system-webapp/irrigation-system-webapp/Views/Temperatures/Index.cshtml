@@ -1,40 +1,17 @@
 ﻿@{
     ViewData["Title"] = "Index";
 }
-@{
-    ViewBag.Title = "Details";
-}
-@using irrigation_system_webapp.Models;
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <canvas id="line-chart" width="800" height="450"></canvas>
 
 <script>
-var arr = [2000];
-    @{
-        int[]myNum = {10000, 20, 30, 40};
-        var temp = (int)ViewBag.temperature;
-    }
-        //foreach(int num in myNum)
-        //{
-                    arr.push(@ViewBag.Temperature);
-//}
-asyncCall();
-async function asyncCall() {
-    console.log("hola");
-    console.log(@temp);
-    console.log(2);
-    await arr.push(@ViewBag.Temperature);
-    createChart();
-}
-function createChart() {
-    new Chart(document.getElementById("line-chart"), {
+new Chart(document.getElementById("line-chart"), {
   type: 'line',
   data: {
     labels: [1500,1600,1700,1750,1800,1850,1900,1950,1999,2050],
     datasets: [{ 
-        data: arr,
+        data: [86,114,106,106,107,111,133,221,783,2478],
         label: "Africa",
         borderColor: "#3e95cd",
         fill: false
@@ -68,6 +45,4 @@ function createChart() {
     }
   }
 });
-}
-
 </script>
