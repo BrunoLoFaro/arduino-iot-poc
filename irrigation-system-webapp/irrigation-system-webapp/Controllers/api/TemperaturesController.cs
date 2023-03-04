@@ -50,6 +50,21 @@ namespace irrigation_system_webapp.Controllers.api
 
             return temperature;
         }
+        // GET: api/LastTemperature
+        [HttpGet("Last")]
+        public async Task<ActionResult<Temperature>> GetLastTemperature()
+        {
+            var temp = new Temperature();
+            try
+            {
+                temp = await _context.Temperatures.OrderByDescending(t=>t.TemperatureId).FirstOrDefaultAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex + ex.Message + ex.StackTrace);
+            }
+            return temp;
+        }
 
         // PUT: api/Temperatures/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
