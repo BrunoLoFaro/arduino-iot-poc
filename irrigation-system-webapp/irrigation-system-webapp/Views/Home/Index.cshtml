@@ -61,7 +61,7 @@
                 console.log("");
                 if (data.temperatureId > lastTemperatureId) {
                     lastTemperatureId = data.temperatureId;
-                    addData(myChart, data.date.toString(), data.value);
+                    addData(myChart, getTimeFromStr(data.date.toString()), data.value);
                 }
             },
             error: function (error) {
@@ -84,6 +84,10 @@ function addData(chart, label, data) {
         dataset.data.push(data);
     });
     chart.update();
+}
+function getTimeFromStr(str) {
+    var partialString = str.split('T')[1];
+    return partialString.split('.')[0];
 }
 
 
