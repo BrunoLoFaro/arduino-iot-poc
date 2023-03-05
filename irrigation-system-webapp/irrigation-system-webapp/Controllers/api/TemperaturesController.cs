@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using irrigation_system_webapp.Data;
 using irrigation_system_webapp.Models;
 
-namespace irrigation_system_webapp.Controllers
+namespace irrigation_system_webapp.Controllers.api
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -49,6 +44,21 @@ namespace irrigation_system_webapp.Controllers
             }
 
             return temperature;
+        }
+        // GET: api/LastTemperature
+        [HttpGet("Last")]
+        public async Task<ActionResult<Temperature>> GetLastTemperature()
+        {
+            var temp = new Temperature();
+            try
+            {
+                temp = await _context.Temperatures.OrderByDescending(t=>t.TemperatureId).FirstOrDefaultAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex + ex.Message + ex.StackTrace);
+            }
+            return temp;
         }
 
         // PUT: api/Temperatures/5

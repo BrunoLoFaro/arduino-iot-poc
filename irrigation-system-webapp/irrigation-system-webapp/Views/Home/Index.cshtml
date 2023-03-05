@@ -1,8 +1,88 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Index";
+}
+@{
+    ViewBag.Title = "Details";
+}
+@using irrigation_system_webapp.Models;
+
+    <script src=
+"https://code.jquery.com/jquery-3.6.0.min.js">
+    </script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<canvas id="line-chart" width="800" height="450"></canvas>
+
+<script>
+    var chartElem = document.getElementById("line-chart");
+    var lastTemperatureId = 0;
+    var myChart = new Chart(chartElem, {
+      type: 'line',
+      data: {
+        labels: [],
+        datasets: [{ 
+            data: [],
+            label: "Malabia 3115",
+            borderColor: "#DC34E7",
+            fill: false
+          }
+        ]
+      },
+      options: {
+        title: {
+          display: true,
+          text: 'Temperatura de casa'
+        }
+      }
+    });
+
+    function initialAjaxCall() {
+        $.ajax({
+            url: 
+            'https://localhost:7213/api/Temperatures',
+            type: "GET",
+            success: function (data) {
+                lastTemperatureId = data[data.length - 1].temperatureId;
+            },
+            error: function (error) {
+                console.log(`Error ${error}`);
+            }
+        });
+    }
+    function updateChartAjaxCall() {
+        $.ajax({
+            url: 
+            'https://localhost:7213/api/Temperatures/Last',
+            type: "GET",
+            success: function (data) {
+                if (data.temperatureId > lastTemperatureId) {
+                    lastTemperatureId = data.temperatureId;
+                    addData(myChart, getTimeFromStr(data.date.toString()), data.value);
+                }
+            },
+            error: function (error) {
+                console.log(`Error ${error}`);
+            }
+        });
+    }
+    initialAjaxCall();
+    
+    setInterval(function(){
+        updateChartAjaxCall() 
+    }, 1000);
+var num = 100;
+
+function addData(chart, label, data) {
+    chart.data.labels.push(label);
+    chart.data.datasets.forEach((dataset) => {
+        dataset.data.push(data);
+    });
+    chart.update();
+}
+function getTimeFromStr(str) {
+    var partialString = str.split('T')[1];
+    return partialString.split('.')[0];
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+
+</script>
