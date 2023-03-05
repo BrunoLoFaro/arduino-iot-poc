@@ -1,0 +1,23 @@
+﻿@model IEnumerable<irrigation_system_webapp.Models.Temperature>
+@{
+    ViewData["Title"] = "Records";
+}
+<h1>@ViewData["Title"]</h1>
+
+<table id="Temperatures" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Temperature</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var temperature in Model)
+        {
+            <tr>
+                <td>@temperature.Date</td>  
+                <td>@temperature.Value</td>
+            </tr>
+        }
+    </tbody>
+</table>
